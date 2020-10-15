@@ -18,9 +18,9 @@ public class MarsRover {
         List<String> validCommands = Arrays.asList("M", "L", "R");
         List<String> givenCommands = Arrays.asList(commands.split(""));
 
-        for (int i = 0; i <= givenCommands.size()-1; i++) {
-            if (validCommands.contains(givenCommands.get(i))) {
-                executeCommand(givenCommands.get(i));
+        for (int command = 0; command <= givenCommands.size()-1; command++) {
+            if (validCommands.contains(givenCommands.get(command))) {
+                executeCommand(givenCommands.get(command));
             } else {
                 throw new CommandNotDefinedException("CommandNotDefinedException");
             }
