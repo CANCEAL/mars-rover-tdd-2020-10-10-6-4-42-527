@@ -3,7 +3,7 @@ package com.afs.tdd;
 public class MarsRover {
     private final int locationX;
     private int locationY;
-    private final String heading;
+    private String heading;
 
     public MarsRover(int locationX, int locationY, String heading) {
         this.locationX = locationX;
@@ -14,6 +14,15 @@ public class MarsRover {
     public void executeCommands(String command) {
         if (command.equals("M")) {
             move();
+        }
+        if (command.equals("L")) {
+            turnLeft();
+        }
+    }
+
+    private void turnLeft() {
+        if (heading.equals("N")) {
+            heading = "W";
         }
     }
 
