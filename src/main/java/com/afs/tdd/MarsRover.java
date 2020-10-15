@@ -1,7 +1,9 @@
 package com.afs.tdd;
 
+import java.util.Arrays;
+
 public class MarsRover {
-    private final int locationX;
+    private int locationX;
     private int locationY;
     private String heading;
 
@@ -11,7 +13,7 @@ public class MarsRover {
         this.heading = heading;
     }
 
-    public void executeCommands(String command) {
+    public void executeCommand(String command) {
         if (command.equals("M")) {
             move();
         }
@@ -23,9 +25,16 @@ public class MarsRover {
         }
     }
 
+    public void executeCommands(String commands) {
+        Arrays.asList(commands.split("")).forEach(command -> this.executeCommand(command));
+    }
+
     private void turnRight() {
         if (heading.equals("N")) {
             heading = "E";
+        }
+        if (heading.equals("S")) {
+            heading = "W";
         }
     }
 
@@ -33,11 +42,17 @@ public class MarsRover {
         if (heading.equals("N")) {
             heading = "W";
         }
+        if (heading.equals("S")) {
+            heading = "E";
+        }
     }
 
     private void move() {
         if (heading.equals("N")) {
             locationY += 1;
+        }
+        if (heading.equals("S")) {
+            locationY -= 1;
         }
     }
 
