@@ -48,11 +48,14 @@ public class MarsRover {
         if (heading.equals("N")) {
             heading = "E";
         }
-        if (heading.equals("S")) {
+        else if (heading.equals("S")) {
             heading = "W";
         }
-        if (heading.equals("E")) {
+        else if (heading.equals("E")) {
             heading = "S";
+        }
+        else if (heading.equals("W")) {
+            heading = "N";
         }
     }
 
@@ -60,13 +63,13 @@ public class MarsRover {
         if (heading.equals("N")) {
             heading = "W";
         }
-        if (heading.equals("S")) {
+        else if (heading.equals("S")) {
             heading = "E";
         }
-        if (heading.equals("E")) {
+        else if (heading.equals("E")) {
             heading = "N";
         }
-        if (heading.equals("W")) {
+        else if (heading.equals("W")) {
             heading = "S";
         }
     }
