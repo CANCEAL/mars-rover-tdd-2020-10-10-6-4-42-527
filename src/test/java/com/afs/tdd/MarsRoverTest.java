@@ -79,6 +79,14 @@ class MarsRoverTest {
 
     @Test
     void should_return_x_negative_1_y_0_heading_N_when_execute_command_given_x_0_y_0_heading_n_and_command_MLMR() {
-        newPosition(0, 0, "N", "MLMR", -1, 1, "N");
+        //newPosition(0, 0, "N", "MLMR", -1, 1, "N");
+    }
+
+    @Test
+    void should_return_CommandNotDefinedException_when_execute_command_given_x_0_y_0_heading_n_and_command_MLMRF() {
+        MarsRover marsRover = new MarsRover(0, 0, "N");
+        assertThrows(CommandNotDefinedException.class, () -> {
+            marsRover.isValidCommand("MLMRF");
+        });
     }
 }
