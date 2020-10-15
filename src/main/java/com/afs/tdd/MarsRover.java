@@ -21,8 +21,7 @@ public class MarsRover {
         for (int i = 0; i <= givenCommands.size()-1; i++) {
             if (validCommands.contains(givenCommands.get(i))) {
                 executeCommand(givenCommands.get(i));
-            }
-            else {
+            } else {
                 throw new CommandNotDefinedException("CommandNotDefinedException");
             }
         }
@@ -40,10 +39,6 @@ public class MarsRover {
                 turnRight();
                 break;
         }
-    }
-
-    public void executeCommands(String commands) {
-        Arrays.asList(commands.split("")).forEach(this::executeCommand);
     }
 
     private void move() {
