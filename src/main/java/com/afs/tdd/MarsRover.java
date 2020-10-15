@@ -1,6 +1,7 @@
 package com.afs.tdd;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class MarsRover {
     private int locationX;
@@ -13,20 +14,36 @@ public class MarsRover {
         this.heading = heading;
     }
 
-    public void executeCommand(String command) {
-        if (command.equals("M")) {
-            move();
+    public void isValidCommand(String commands) throws CommandNotDefinedException {
+        List<String> validCommands = Arrays.asList("M", "L", "R");
+        List<String> givenCommands = Arrays.asList(commands.split(""));
+
+        for (int i = 0; i <= givenCommands.size()-1; i++) {
+            if (validCommands.contains(givenCommands.get(i))) {
+                executeCommand(givenCommands.get(i));
+            }
+            else {
+                throw new CommandNotDefinedException("CommandNotDefinedException");
+            }
         }
-        if (command.equals("L")) {
-            turnLeft();
-        }
-        if (command.equals("R")) {
-            turnRight();
+    }
+
+    private void executeCommand(String command) {
+        switch (command) {
+            case "M":
+                move();
+                break;
+            case "L":
+                turnLeft();
+                break;
+            case "R":
+                turnRight();
+                break;
         }
     }
 
     public void executeCommands(String commands) {
-        Arrays.asList(commands.split("")).forEach(command -> this.executeCommand(command));
+        Arrays.asList(commands.split("")).forEach(this::executeCommand);
     }
 
     private void move() {
@@ -45,33 +62,19 @@ public class MarsRover {
     }
 
     private void turnRight() {
-        if (heading.equals("N")) {
-            heading = "E";
-        }
-        else if (heading.equals("S")) {
-            heading = "W";
-        }
-        else if (heading.equals("E")) {
-            heading = "S";
-        }
-        else if (heading.equals("W")) {
-            heading = "N";
-        }
+        heading = heading.equals("N") ? "E" :
+                  heading.equals("S") ? "W" :
+                  heading.equals("E") ? "S" :
+                  heading.equals("W") ? "N" :
+                  null;
     }
 
     private void turnLeft() {
-        if (heading.equals("N")) {
-            heading = "W";
-        }
-        else if (heading.equals("S")) {
-            heading = "E";
-        }
-        else if (heading.equals("E")) {
-            heading = "N";
-        }
-        else if (heading.equals("W")) {
-            heading = "S";
-        }
+        heading = heading.equals("N") ? "W" :
+                  heading.equals("S") ? "E" :
+                  heading.equals("E") ? "N" :
+                  heading.equals("W") ? "S" :
+                  null;
     }
 
     public int getLocationX() {
@@ -85,4 +88,6 @@ public class MarsRover {
     public String getHeading() {
         return heading;
     }
+
+
 }
