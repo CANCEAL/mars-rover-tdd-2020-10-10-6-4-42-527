@@ -29,12 +29,15 @@ public class MarsRover {
         Arrays.asList(commands.split("")).forEach(command -> this.executeCommand(command));
     }
 
+    private void move() {
+        if (heading.equals("N")) {
+            locationY += 1;
+        }
+    }
+
     private void turnRight() {
         if (heading.equals("N")) {
             heading = "E";
-        }
-        if (heading.equals("S")) {
-            heading = "W";
         }
     }
 
@@ -44,15 +47,6 @@ public class MarsRover {
         }
         if (heading.equals("S")) {
             heading = "E";
-        }
-    }
-
-    private void move() {
-        if (heading.equals("N")) {
-            locationY += 1;
-        }
-        if (heading.equals("S")) {
-            locationY -= 1;
         }
     }
 
