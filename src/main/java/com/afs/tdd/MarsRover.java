@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MarsRover {
-    private int locationX;
-    private int locationY;
+    private int locationX, locationY;
     private String heading;
+    private static final String HEADING_N = "N", HEADING_S = "S", HEADING_E = "E", HEADING_W = "W";
+    private static final String MOVE = "M";
+    private static final String TURN_LEFT = "L", TURN_RIGHT = "R";
 
     public MarsRover(int locationX, int locationY, String heading) {
         this.locationX = locationX;
@@ -15,7 +17,7 @@ public class MarsRover {
     }
 
     public void isValidCommand(String commands) throws CommandNotDefinedException {
-        List<String> validCommands = Arrays.asList("M", "L", "R");
+        List<String> validCommands = Arrays.asList(MOVE, TURN_LEFT, TURN_RIGHT);
         List<String> givenCommands = Arrays.asList(commands.split(""));
 
         for (int command = 0; command <= givenCommands.size()-1; command++) {
@@ -29,46 +31,46 @@ public class MarsRover {
 
     private void executeCommand(String command) {
         switch (command) {
-            case "M":
+            case MOVE:
                 move();
                 break;
-            case "L":
+            case TURN_LEFT:
                 turnLeft();
                 break;
-            case "R":
+            case TURN_RIGHT:
                 turnRight();
                 break;
         }
     }
 
     private void move() {
-        if (heading.equals("N")) {
+        if (heading.equals(HEADING_N)) {
             locationY += 1;
         }
-        if (heading.equals("S")) {
+        if (heading.equals(HEADING_S)) {
             locationY -= 1;
         }
-        if (heading.equals("E")) {
+        if (heading.equals(HEADING_E)) {
             locationX += 1;
         }
-        if (heading.equals("W")) {
+        if (heading.equals(HEADING_W)) {
             locationX -= 1;
         }
     }
 
     private void turnRight() {
-        heading = heading.equals("N") ? "E" :
-                  heading.equals("S") ? "W" :
-                  heading.equals("E") ? "S" :
-                  heading.equals("W") ? "N" :
+        heading = heading.equals(HEADING_N) ? HEADING_E :
+                  heading.equals(HEADING_S) ? HEADING_W :
+                  heading.equals(HEADING_E) ? HEADING_S :
+                  heading.equals(HEADING_W) ? HEADING_N :
                   null;
     }
 
     private void turnLeft() {
-        heading = heading.equals("N") ? "W" :
-                  heading.equals("S") ? "E" :
-                  heading.equals("E") ? "N" :
-                  heading.equals("W") ? "S" :
+        heading = heading.equals(HEADING_N) ? HEADING_W :
+                  heading.equals(HEADING_S) ? HEADING_E :
+                  heading.equals(HEADING_E) ? HEADING_N :
+                  heading.equals(HEADING_W) ? HEADING_S :
                   null;
     }
 
