@@ -4,11 +4,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MarsRover {
-    private int locationX, locationY;
+    //refactor to use enum
+    //if use enum, how to eliminate if statements
+    private int locationX;
+    private int locationY;
     private String heading;
-    private static final String HEADING_N = "N", HEADING_S = "S", HEADING_E = "E", HEADING_W = "W";
+    private static final String HEADING_N = "N";
+    private static final String HEADING_S = "S";
+    private static final String HEADING_E = "E";
+    private static final String HEADING_W = "W";
     private static final String MOVE = "M";
-    private static final String TURN_LEFT = "L", TURN_RIGHT = "R";
+    private static final String TURN_LEFT = "L";
+    private static final String TURN_RIGHT = "R";
 
     public MarsRover(int locationX, int locationY, String heading) {
         this.locationX = locationX;
@@ -20,12 +27,10 @@ public class MarsRover {
         List<String> validCommands = Arrays.asList(MOVE, TURN_LEFT, TURN_RIGHT);
         List<String> givenCommands = Arrays.asList(commands.split(""));
 
-        for (int command = 0; command <= givenCommands.size()-1; command++) {
-            if (validCommands.contains(givenCommands.get(command))) {
-                executeCommand(givenCommands.get(command));
-            } else {
-                throw new CommandNotDefinedException("CommandNotDefinedException");
-            }
+        if (validCommands.containsAll(givenCommands)) {
+            Arrays.asList(commands.split("")).forEach(this::executeCommand);
+        } else {
+            throw new CommandNotDefinedException("CommandNotDefinedException");
         }
     }
 
@@ -42,36 +47,32 @@ public class MarsRover {
                 break;
         }
     }
-
+    //create and place on their own class
     private void move() {
-        if (heading.equals(HEADING_N)) {
-            locationY += 1;
-        }
-        if (heading.equals(HEADING_S)) {
-            locationY -= 1;
-        }
-        if (heading.equals(HEADING_E)) {
-            locationX += 1;
-        }
-        if (heading.equals(HEADING_W)) {
-            locationX -= 1;
+        switch (heading) {
+            case HEADING_N: locationY += 1; break;
+            case HEADING_S: locationY -= 1; break;
+            case HEADING_E: locationX += 1; break;
+            case HEADING_W: locationX -= 1; break;
         }
     }
-
+    //create and place on their own class
     private void turnRight() {
-        heading = heading.equals(HEADING_N) ? HEADING_E :
-                  heading.equals(HEADING_S) ? HEADING_W :
-                  heading.equals(HEADING_E) ? HEADING_S :
-                  heading.equals(HEADING_W) ? HEADING_N :
-                  null;
+        switch (heading) {
+            case HEADING_N: heading = HEADING_E; break;
+            case HEADING_S: heading = HEADING_W; break;
+            case HEADING_E: heading = HEADING_S; break;
+            case HEADING_W: heading = HEADING_N; break;
+        }
     }
-
+    //create and place on their own class
     private void turnLeft() {
-        heading = heading.equals(HEADING_N) ? HEADING_W :
-                  heading.equals(HEADING_S) ? HEADING_E :
-                  heading.equals(HEADING_E) ? HEADING_N :
-                  heading.equals(HEADING_W) ? HEADING_S :
-                  null;
+        switch (heading) {
+            case HEADING_N: heading = HEADING_W; break;
+            case HEADING_S: heading = HEADING_E; break;
+            case HEADING_E: heading = HEADING_N; break;
+            case HEADING_W: heading = HEADING_S; break;
+        }
     }
 
     public int getLocationX() {
@@ -85,6 +86,4 @@ public class MarsRover {
     public String getHeading() {
         return heading;
     }
-
-
 }
