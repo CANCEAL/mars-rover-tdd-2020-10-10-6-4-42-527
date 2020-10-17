@@ -7,13 +7,6 @@ public class MarsRover {
     private int locationX;
     private int locationY;
     private String heading;
-    private static final String HEADING_N = "N";
-    private static final String HEADING_S = "S";
-    private static final String HEADING_E = "E";
-    private static final String HEADING_W = "W";
-    private static final String MOVE = "M";
-    private static final String TURN_LEFT = "L";
-    private static final String TURN_RIGHT = "R";
 
     public MarsRover(int locationX, int locationY, String heading) {
         this.locationX = locationX;
@@ -22,7 +15,7 @@ public class MarsRover {
     }
 
     public void isValidCommand(String commands) throws CommandNotDefinedException {
-        List<String> validCommands = Arrays.asList(MOVE, TURN_LEFT, TURN_RIGHT);
+        List<String> validCommands = Arrays.asList(Constants.MOVE, Constants.TURN_LEFT,  Constants.TURN_RIGHT);
         List<String> givenCommands = Arrays.asList(commands.split(""));
 
         if (validCommands.containsAll(givenCommands)) {
@@ -34,13 +27,13 @@ public class MarsRover {
 
     private void executeCommand(String command) {
         switch (command) {
-            case MOVE:
+            case Constants.MOVE:
                 move();
                 break;
-            case TURN_LEFT:
+            case Constants.TURN_LEFT:
                 turnLeft();
                 break;
-            case TURN_RIGHT:
+            case Constants.TURN_RIGHT:
                 turnRight();
                 break;
         }
@@ -48,28 +41,36 @@ public class MarsRover {
 
     private void move() {
         switch (heading) {
-            case HEADING_N: locationY += 1; break;
-            case HEADING_S: locationY -= 1; break;
-            case HEADING_E: locationX += 1; break;
-            case HEADING_W: locationX -= 1; break;
+                case Constants.HEADING_N:
+                    locationY += 1;
+                    break;
+                case Constants.HEADING_S:
+                    locationY -= 1;
+                    break;
+                case Constants.HEADING_E:
+                    locationX += 1;
+                    break;
+                case Constants.HEADING_W:
+                    locationX -= 1;
+                    break;
         }
     }
 
     private void turnRight() {
         switch (heading) {
-            case HEADING_N: heading = HEADING_E; break;
-            case HEADING_S: heading = HEADING_W; break;
-            case HEADING_E: heading = HEADING_S; break;
-            case HEADING_W: heading = HEADING_N; break;
+            case Constants.HEADING_N: heading = Constants.HEADING_E; break;
+            case Constants.HEADING_S: heading = Constants.HEADING_W; break;
+            case Constants.HEADING_E: heading = Constants.HEADING_S; break;
+            case Constants.HEADING_W: heading = Constants.HEADING_N; break;
         }
     }
 
     private void turnLeft() {
         switch (heading) {
-            case HEADING_N: heading = HEADING_W; break;
-            case HEADING_S: heading = HEADING_E; break;
-            case HEADING_E: heading = HEADING_N; break;
-            case HEADING_W: heading = HEADING_S; break;
+            case Constants.HEADING_N: heading = Constants.HEADING_W; break;
+            case Constants.HEADING_S: heading = Constants.HEADING_E; break;
+            case Constants.HEADING_E: heading = Constants.HEADING_N; break;
+            case Constants.HEADING_W: heading = Constants.HEADING_S; break;
         }
     }
 
