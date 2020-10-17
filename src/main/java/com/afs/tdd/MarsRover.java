@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MarsRover {
-    //refactor to use enum
-    //if use enum, how to eliminate if statements
     private int locationX;
     private int locationY;
     private String heading;
@@ -47,7 +45,7 @@ public class MarsRover {
                 break;
         }
     }
-    //create and place on their own class
+
     private void move() {
         switch (heading) {
             case HEADING_N: locationY += 1; break;
@@ -56,7 +54,7 @@ public class MarsRover {
             case HEADING_W: locationX -= 1; break;
         }
     }
-    //create and place on their own class
+
     private void turnRight() {
         switch (heading) {
             case HEADING_N: heading = HEADING_E; break;
@@ -65,7 +63,7 @@ public class MarsRover {
             case HEADING_W: heading = HEADING_N; break;
         }
     }
-    //create and place on their own class
+
     private void turnLeft() {
         switch (heading) {
             case HEADING_N: heading = HEADING_W; break;
