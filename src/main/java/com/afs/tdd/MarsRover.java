@@ -1,17 +1,18 @@
 package com.afs.tdd;
 
+import com.afs.tdd.commands.LeftCommand;
+import com.afs.tdd.commands.MoveCommand;
+import com.afs.tdd.commands.RightCommand;
+import com.afs.tdd.exceptions.CommandNotDefinedException;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class MarsRover {
-    private int locationX;
-    private int locationY;
-    private String heading;
+    private RoverPosition roverPosition;
 
     public MarsRover(int locationX, int locationY, String heading) {
-        this.locationX = locationX;
-        this.locationY = locationY;
-        this.heading = heading;
+        this.roverPosition = new RoverPosition(locationX, locationY, heading);
     }
 
     public void isValidCommand(String commands) throws CommandNotDefinedException {
@@ -19,7 +20,7 @@ public class MarsRover {
         List<String> givenCommands = Arrays.asList(commands.split(""));
 
         if (validCommands.containsAll(givenCommands)) {
-            Arrays.asList(commands.split("")).forEach(this::executeCommand);
+            Arrays.asList(commands.split("")).forEach(command -> executeCommand(command));
         } else {
             throw new CommandNotDefinedException("CommandNotDefinedException");
         }
@@ -28,61 +29,26 @@ public class MarsRover {
     private void executeCommand(String command) {
         switch (command) {
             case Constants.MOVE:
-                move();
+                new MoveCommand().execute(roverPosition);
                 break;
             case Constants.TURN_LEFT:
-                turnLeft();
+                new LeftCommand().execute(roverPosition);
                 break;
             case Constants.TURN_RIGHT:
-                turnRight();
+                new RightCommand().execute(roverPosition);
                 break;
-        }
-    }
-
-    private void move() {
-        switch (heading) {
-                case Constants.HEADING_N:
-                    locationY += 1;
-                    break;
-                case Constants.HEADING_S:
-                    locationY -= 1;
-                    break;
-                case Constants.HEADING_E:
-                    locationX += 1;
-                    break;
-                case Constants.HEADING_W:
-                    locationX -= 1;
-                    break;
-        }
-    }
-
-    private void turnRight() {
-        switch (heading) {
-            case Constants.HEADING_N: heading = Constants.HEADING_E; break;
-            case Constants.HEADING_S: heading = Constants.HEADING_W; break;
-            case Constants.HEADING_E: heading = Constants.HEADING_S; break;
-            case Constants.HEADING_W: heading = Constants.HEADING_N; break;
-        }
-    }
-
-    private void turnLeft() {
-        switch (heading) {
-            case Constants.HEADING_N: heading = Constants.HEADING_W; break;
-            case Constants.HEADING_S: heading = Constants.HEADING_E; break;
-            case Constants.HEADING_E: heading = Constants.HEADING_N; break;
-            case Constants.HEADING_W: heading = Constants.HEADING_S; break;
         }
     }
 
     public int getLocationX() {
-        return locationX;
+        return roverPosition.getLocationX();
     }
 
     public int getLocationY() {
-        return locationY;
+        return roverPosition.getLocationY();
     }
 
     public String getHeading() {
-        return heading;
+        return roverPosition.getHeading();
     }
 }
